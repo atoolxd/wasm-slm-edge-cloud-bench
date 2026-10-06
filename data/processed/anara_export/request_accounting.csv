@@ -1,0 +1,15 @@
+host,model,quant,issued,warmup_discarded,analyzed,source_file
+cloud,qwen2.5-0.5b,F16,147,49,98,cloud_qwen2.5-0.5b_F16.jsonl
+cloud,qwen2.5-0.5b,Q4_K_M,147,49,98,cloud_qwen2.5-0.5b_Q4_K_M.jsonl
+cloud,qwen2.5-0.5b,Q8_0,147,49,98,cloud_qwen2.5-0.5b_Q8_0.jsonl
+cloud,tinyllama-1.1b,F16,147,49,98,cloud_tinyllama-1.1b_F16.jsonl
+cloud,tinyllama-1.1b,Q4_K_M,147,49,98,cloud_tinyllama-1.1b_Q4_K_M.jsonl
+cloud,tinyllama-1.1b,Q8_0,147,49,98,cloud_tinyllama-1.1b_Q8_0.jsonl
+edge,qwen2.5-0.5b,F16,147,49,98,edge_qwen2.5-0.5b_F16.jsonl
+edge,qwen2.5-0.5b,Q4_K_M,147,49,98,edge_qwen2.5-0.5b_Q4_K_M.jsonl
+edge,qwen2.5-0.5b,Q8_0,147,49,98,edge_qwen2.5-0.5b_Q8_0.jsonl
+edge,tinyllama-1.1b,F16,147,49,98,edge_tinyllama-1.1b_F16.jsonl
+edge,tinyllama-1.1b,Q4_K_M,147,49,98,edge_tinyllama-1.1b_Q4_K_M.jsonl
+edge,tinyllama-1.1b,Q8_0,147,49,98,edge_tinyllama-1.1b_Q8_0.jsonl
+TOTAL,,,1764,588,1176,
+EXCLUDED (discarded+pilot runs),,,367,,0,

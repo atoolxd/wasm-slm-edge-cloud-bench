@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this dataset or harness, please cite it as below."
+title: "wasm-slm-edge-cloud-bench: Quantized small-LLM inference across the WebAssembly edge-cloud boundary"
+authors:
+  - family-names: Kharel
+    given-names: Atul Ballav
+type: dataset
+version: 1.0.0
+date-released: 2026-10-06
+repository-code: "https://github.com/atoolxd/wasm-slm-edge-cloud-bench"
+license: CC-BY-4.0
+keywords: [webassembly, wasmedge, wasi-nn, llm-inference, quantization, edge-computing, benchmark]

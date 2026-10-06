@@ -1,0 +1,7 @@
+Measurement data and documentation in this repository are licensed under the
+Creative Commons Attribution 4.0 International License (CC BY 4.0):
+https://creativecommons.org/licenses/by/4.0/legalcode
+
+Exception: prompt text in data/prompts/ and data/processed/anara_export/prompts.csv
+is derived from the Stanford Alpaca dataset and remains under CC BY-NC 4.0:
+https://creativecommons.org/licenses/by-nc/4.0/legalcode

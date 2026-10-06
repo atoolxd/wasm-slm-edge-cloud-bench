@@ -1,0 +1,66 @@
+# Benchmark sweep configuration.
+# Fill in / adjust as you actually download models and stand up hosts.
+# See ../docs/experiment_design.md for the full rationale behind these choices.
+
+hosts:
+  pilot:
+    base_url: "http://localhost:8080"   # bare WSL2, uncapped — pipeline smoke-test ONLY
+    kind: local
+    notes: "NOT the edge profile — no resource cap applied. Used only to verify run_benchmark.py end-to-end (docs/experiment_design.md §8) before Docker is set up. Do not use pilot_*.jsonl files as edge-profile data in analysis."
+  edge:
+    base_url: "http://localhost:8080"   # WasmEdge server run inside the resource-capped Docker container
+    kind: local                          # local | remote  (controls how memory is sampled)
+    notes: "2 vCPU / 3GB cap via Docker (WSL2 raised to 4GB via .wslconfig, see host_specs.md), see setup/SETUP.md step 6"
+  cloud:
+    base_url: "http://<CLOUD_HOST>:8080"
+    kind: remote
+    ssh_host: "<CLOUD_HOST>"     # used for optional remote memory sampling; leave blank to skip
+    ssh_user: "<SSH_USER>"
+    notes: "Linode G7 Dedicated 8x4 (not Oracle — see host_specs.md for the deviation note), 4 vCPU / 8GB, IN-Chennai (in-maa), no Docker cap (native VM resources are the cap), see setup/SETUP.md step 7"
+
+models:
+  # Prioritized subset for the time budget (see experiment_design.md §5's
+  # scope-reduction note) — these two run first and are the core result.
+  - name: tinyllama-1.1b
+    quants: [Q4_K_M, Q8_0, F16]
+  - name: qwen2.5-0.5b
+    quants: [Q4_K_M, Q8_0, F16]
+  # Deferred — run only if time remains after the core subset above;
+  # otherwise report as future work, not a silently dropped combo.
+  # - name: qwen2.5-1.5b
+  #   quants: [Q4_K_M, Q8_0, F16]
+  # - name: phi-3-mini
+  #   quants: [Q4_K_M, Q8_0]   # F16 intentionally skipped, see experiment_design.md
+
+# For each (host, model, quant) combination, the harness expects the
+# corresponding llama-api-server to already be running with --model-name
+# set to "<model>-<quant lowercased>", e.g. "tinyllama-1.1b-q4_k_m".
+# You will restart the server between model/quant combinations by hand
+# (or script it later once the manual sweep is validated) — see the
+# run_benchmark.py docstring for the expected workflow.
+
+prompts_file: "../data/prompts/prompts.jsonl"
+raw_output_dir: "../data/raw"
+
+repetitions: 3          # per (host, model, quant, prompt); first run discarded as warmup
+# 2026-09-04: unified to 3 for both hosts (was edge-only 3 / cloud 5) per
+# user decision, for a consistent statistical-power comparison across hosts.
+# The already-completed cloud Q4_K_M leg was collected at 5 reps before this
+# change; its reps 3-4 rows are trimmed post-hoc for consistency (see
+# docs/PROGRESS_LOG.md).
+# 120s was too short: edge measured 163s for a 393-prompt-token + 128-completion-token
+# request (see docs/PROGRESS_LOG.md), causing every long-bucket prompt to time out.
+# 300s still wasn't enough for F16 (edge's slowest quant): 6 long-bucket
+# requests measured 274s+ and hit the ceiling. 450s gives real margin.
+request_timeout_s: 450
+
+# Must match the --n-predict value each llama-api-server.wasm instance is
+# launched with (see setup/SETUP.md step 6/7). LlamaEdge 0.29.0 does NOT
+# actually enforce --n-predict from the CLI unless the request also sends
+# max_completion_tokens — confirmed by testing directly: without it, the
+# server logs "Update n_predict with max_completion_tokens from 128 to
+# 2147483647" and generation runs unbounded (found via real sweep data:
+# some rows generated 800-2500+ tokens despite --n-predict 128). The
+# harness sends this value as max_completion_tokens on every request so
+# the cap is actually real, not just documented. See docs/PROGRESS_LOG.md.
+n_predict: 128

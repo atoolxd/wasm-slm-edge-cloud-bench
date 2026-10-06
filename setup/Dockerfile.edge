@@ -1,0 +1,22 @@
+# Edge-profile container image for the Wasm/WASI-NN benchmark.
+#
+# wasmedge/slim on Docker Hub was tried first and rejected: it has no
+# `latest` tag and hasn't been pushed since 2024-01 (newest tag
+# 0.14.0-alpha.1), predating the WasmEdge 0.17.1 + wasi_nn-ggml plugin
+# combination already validated working in bare WSL2 (see setup/SETUP.md
+# §2 and the pilot run in docs/experiment_design.md §8). This Dockerfile
+# just reproduces that exact same validated install inside a container
+# instead of depending on a stale upstream image.
+FROM ubuntu:24.04
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        curl ca-certificates git python3 \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh \
+        | bash -s -- --plugin wasi_nn-ggml
+
+ENV PATH="/root/.wasmedge/bin:${PATH}"
+ENV LD_LIBRARY_PATH="/root/.wasmedge/lib:${LD_LIBRARY_PATH}"
+
+WORKDIR /app

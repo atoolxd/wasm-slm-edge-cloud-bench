@@ -1,0 +1,8 @@
+{
+  "title": "wasm-slm-edge-cloud-bench: Quantized small-LLM inference across the WebAssembly edge-cloud boundary",
+  "upload_type": "dataset",
+  "description": "Per-request latency/memory measurements, benchmark harness, and stratified prompt set for TinyLlama-1.1B and Qwen2.5-0.5B (Q4_K_M, Q8_0, F16) served via WasmEdge/WASI-NN (LlamaEdge) on a Docker-capped edge profile and a cloud VM. Includes discarded runs documenting LlamaEdge 0.29.0 generation-cap defects.",
+  "creators": [{"name": "Kharel, Atul Ballav"}],
+  "license": "cc-by-4.0",
+  "keywords": ["webassembly", "wasmedge", "wasi-nn", "llm-inference", "quantization", "edge-computing", "benchmark"]
+}
