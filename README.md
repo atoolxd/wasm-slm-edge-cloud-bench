@@ -7,6 +7,7 @@
 [![Prompts: CC BY-NC 4.0](https://img.shields.io/badge/prompts-CC%20BY--NC%204.0-lightgrey.svg)](LICENSE-DATA)
 ![Runtime: WasmEdge 0.17.1](https://img.shields.io/badge/WasmEdge-0.17.1-6f42c1.svg)
 ![Server: LlamaEdge 0.29.0](https://img.shields.io/badge/LlamaEdge-0.29.0-6f42c1.svg)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23187225.svg)](https://doi.org/10.5281/zenodo.23187225)
 
 This repository is the artifact for an empirical study of **WasmEdge / WASI-NN** small-LLM inference
 across a resource-capped **edge** profile and a dedicated-CPU **cloud** VM. It contains every
@@ -225,7 +226,8 @@ If you use this dataset or harness, please cite it (see also [`CITATION.cff`](CI
   year      = {2026},
   publisher = {Zenodo},
   version   = {1.0.0},
-  url       = {https://github.com/atoolxd/wasm-slm-edge-cloud-bench}
+  doi       = {10.5281/zenodo.23187225},
+  url       = {https://doi.org/10.5281/zenodo.23187225}
 }
 ```
 

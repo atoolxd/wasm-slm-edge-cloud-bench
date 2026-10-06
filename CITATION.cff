@@ -9,4 +9,5 @@ version: 1.0.0
 date-released: 2026-10-06
 repository-code: "https://github.com/atoolxd/wasm-slm-edge-cloud-bench"
 license: CC-BY-4.0
+doi: 10.5281/zenodo.23187225
 keywords: [webassembly, wasmedge, wasi-nn, llm-inference, quantization, edge-computing, benchmark]
