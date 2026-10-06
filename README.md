@@ -220,7 +220,7 @@ Found during data collection, root-caused by reading the release source, and rep
 If you use this dataset or harness, please cite it (see also [`CITATION.cff`](CITATION.cff)):
 
 ```bibtex
-@dataset{kharel_wasm_slm_bench_2026,
+@dataset{wasm_slm_edge_cloud_bench_2026,
   author    = {Kharel, Atul Ballav},
   title     = {wasm-slm-edge-cloud-bench: Quantized small-LLM inference across the WebAssembly edge-cloud boundary},
   year      = {2026},
